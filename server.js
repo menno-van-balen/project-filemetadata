@@ -18,11 +18,16 @@ app.get("/", function (req, res) {
 
 app.post("/api/fileanalyse", upload.single("upfile"), (req, res) => {
   console.log("New file upload:", req.file);
+
   const filename = req.file.originalname;
   const size = req.file.size;
-  res.json({ filename, size });
+  const nameOnServer = req.file.filename;
+
+  res.json({ filename, size, nameOnServer });
 });
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Node.js listening ...");
+const port = process.env.PORT || 3000;
+
+app.listen(port, function () {
+  console.log(`Node.js listening on port: ${port}...`);
 });
